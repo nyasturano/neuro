@@ -1,0 +1,33 @@
+D:\35-2_Fedorova_neuro\35-2_Fedorova_neuro\bin\Debug\35-2_Fedorova_neuro.exe.config
+D:\35-2_Fedorova_neuro\35-2_Fedorova_neuro\bin\Debug\35-2_Fedorova_neuro.exe
+D:\35-2_Fedorova_neuro\35-2_Fedorova_neuro\bin\Debug\35-2_Fedorova_neuro.pdb
+D:\35-2_Fedorova_neuro\35-2_Fedorova_neuro\obj\Debug\35-2_Fedorova_neuro.csproj.AssemblyReference.cache
+D:\35-2_Fedorova_neuro\35-2_Fedorova_neuro\obj\Debug\35-2_Fedorova_neuro.csproj.SuggestedBindingRedirects.cache
+D:\35-2_Fedorova_neuro\35-2_Fedorova_neuro\obj\Debug\_35_2_Fedorova_neuro.Form1.resources
+D:\35-2_Fedorova_neuro\35-2_Fedorova_neuro\obj\Debug\_35_2_Fedorova_neuro.Properties.Resources.resources
+D:\35-2_Fedorova_neuro\35-2_Fedorova_neuro\obj\Debug\35-2_Fedorova_neuro.csproj.GenerateResource.cache
+D:\35-2_Fedorova_neuro\35-2_Fedorova_neuro\obj\Debug\35-2_Fedorova_neuro.csproj.CoreCompileInputs.cache
+D:\35-2_Fedorova_neuro\35-2_Fedorova_neuro\obj\Debug\35-2_Fedorova_neuro.exe
+D:\35-2_Fedorova_neuro\35-2_Fedorova_neuro\obj\Debug\35-2_Fedorova_neuro.pdb
+C:\Users\s0169565\source\repos\35-2_Fedorova_neuro\35-2_Fedorova_neuro\bin\Debug\35-2_Fedorova_neuro.exe.config
+C:\Users\s0169565\source\repos\35-2_Fedorova_neuro\35-2_Fedorova_neuro\bin\Debug\35-2_Fedorova_neuro.exe
+C:\Users\s0169565\source\repos\35-2_Fedorova_neuro\35-2_Fedorova_neuro\bin\Debug\35-2_Fedorova_neuro.pdb
+C:\Users\s0169565\source\repos\35-2_Fedorova_neuro\35-2_Fedorova_neuro\obj\Debug\35-2_Fedorova_neuro.csproj.AssemblyReference.cache
+C:\Users\s0169565\source\repos\35-2_Fedorova_neuro\35-2_Fedorova_neuro\obj\Debug\35-2_Fedorova_neuro.csproj.SuggestedBindingRedirects.cache
+C:\Users\s0169565\source\repos\35-2_Fedorova_neuro\35-2_Fedorova_neuro\obj\Debug\_35_2_Fedorova_neuro.Form1.resources
+C:\Users\s0169565\source\repos\35-2_Fedorova_neuro\35-2_Fedorova_neuro\obj\Debug\_35_2_Fedorova_neuro.Properties.Resources.resources
+C:\Users\s0169565\source\repos\35-2_Fedorova_neuro\35-2_Fedorova_neuro\obj\Debug\35-2_Fedorova_neuro.csproj.GenerateResource.cache
+C:\Users\s0169565\source\repos\35-2_Fedorova_neuro\35-2_Fedorova_neuro\obj\Debug\35-2_Fedorova_neuro.csproj.CoreCompileInputs.cache
+C:\Users\s0169565\source\repos\35-2_Fedorova_neuro\35-2_Fedorova_neuro\obj\Debug\35-2_Fedorova_neuro.exe
+C:\Users\s0169565\source\repos\35-2_Fedorova_neuro\35-2_Fedorova_neuro\obj\Debug\35-2_Fedorova_neuro.pdb
+C:\Users\fedan\OneDrive\Рабочий стол\35-2_Fedorova_neuro\35-2_Fedorova_neuro\bin\Debug\35-2_Fedorova_neuro.exe.config
+C:\Users\fedan\OneDrive\Рабочий стол\35-2_Fedorova_neuro\35-2_Fedorova_neuro\bin\Debug\35-2_Fedorova_neuro.exe
+C:\Users\fedan\OneDrive\Рабочий стол\35-2_Fedorova_neuro\35-2_Fedorova_neuro\bin\Debug\35-2_Fedorova_neuro.pdb
+C:\Users\fedan\OneDrive\Рабочий стол\35-2_Fedorova_neuro\35-2_Fedorova_neuro\obj\Debug\35-2_Fedorova_neuro.csproj.AssemblyReference.cache
+C:\Users\fedan\OneDrive\Рабочий стол\35-2_Fedorova_neuro\35-2_Fedorova_neuro\obj\Debug\35-2_Fedorova_neuro.csproj.SuggestedBindingRedirects.cache
+C:\Users\fedan\OneDrive\Рабочий стол\35-2_Fedorova_neuro\35-2_Fedorova_neuro\obj\Debug\_35_2_Fedorova_neuro.Form1.resources
+C:\Users\fedan\OneDrive\Рабочий стол\35-2_Fedorova_neuro\35-2_Fedorova_neuro\obj\Debug\_35_2_Fedorova_neuro.Properties.Resources.resources
+C:\Users\fedan\OneDrive\Рабочий стол\35-2_Fedorova_neuro\35-2_Fedorova_neuro\obj\Debug\35-2_Fedorova_neuro.csproj.GenerateResource.cache
+C:\Users\fedan\OneDrive\Рабочий стол\35-2_Fedorova_neuro\35-2_Fedorova_neuro\obj\Debug\35-2_Fedorova_neuro.csproj.CoreCompileInputs.cache
+C:\Users\fedan\OneDrive\Рабочий стол\35-2_Fedorova_neuro\35-2_Fedorova_neuro\obj\Debug\35-2_Fedorova_neuro.exe
+C:\Users\fedan\OneDrive\Рабочий стол\35-2_Fedorova_neuro\35-2_Fedorova_neuro\obj\Debug\35-2_Fedorova_neuro.pdb
