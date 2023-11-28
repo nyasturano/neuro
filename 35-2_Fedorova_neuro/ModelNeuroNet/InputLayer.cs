@@ -4,7 +4,7 @@ namespace _35_2_Fedorova_neuro.ModelNeuroNet
 {
     class InputLayer
     {
-        public InputLayer(NetworkMode nm)
+        public InputLayer(NetworkMode networkMode)
         {
         }
     }

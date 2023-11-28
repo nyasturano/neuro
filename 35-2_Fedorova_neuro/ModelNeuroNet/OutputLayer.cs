@@ -2,18 +2,19 @@
 {
     class OutputLayer : Layer
     {
-        public OutputLayer(int non, int nonp, TypeNeuron nt, string nm_Layer) : base(non, nonp, nt, nm_Layer) { }
+        public OutputLayer(int neuronsCount, int prevNeuronsCount, NeuronType neuronType, string name) 
+            : base(neuronsCount, prevNeuronsCount, neuronType, name) { }
 
         public override void Recognize(NeuroNet net, Layer nextLayer)
         {
             double e_sum = 0;
 
-            for (int i = 0; i < numofneurons; i++)
+            for (int i = 0; i < _neuronsCount; i++)
             {
                 e_sum += Neurons[i].Output;
             }
 
-            for (int i = 0; i < numofneurons; i++)
+            for (int i = 0; i < _neuronsCount; i++)
             {
                 net.Fact[i] = Neurons[i].Output / e_sum;
             }
@@ -21,10 +22,10 @@
 
         public override double[] BackwardPass(double[] errors)
         {
-            double[] gr_sum = new double[numofprevneurons + 1];
+            double[] gr_sum = new double[_prevNeuronsCount + 1];
 
             // вычисление градиетных сумм
-            for (int j = 0; j < numofprevneurons + 1; j++)
+            for (int j = 0; j < _prevNeuronsCount + 1; j++)
             {
                 double sum = 0;
                 for (int k = 0; k < Neurons.Length; k++)
@@ -35,23 +36,23 @@
             }
 
             // вычисление коррекции синаптических весов
-            for (int i = 0; i < numofneurons; i++)
+            for (int i = 0; i < _neuronsCount; i++)
             {
-                for (int n = 0; n < numofprevneurons + 1; n++)
+                for (int n = 0; n < _prevNeuronsCount + 1; n++)
                 {
                     double delta_w = 0;
                     // для коррекции порога
                     if (n == 0)
                     {
-                        delta_w = momentum * lastdeltaweights[i, 0] + learningrate * errors[i];
+                        delta_w = _momentum * _lastDeltaWeights[i, 0] + _learningRate * errors[i];
                     }
                     // коррекция синаптических весов
                     else
                     {
-                        delta_w = momentum * lastdeltaweights[i, n] + learningrate * Neurons[i].Inputs[n - 1] * errors[i];
+                        delta_w = _momentum * _lastDeltaWeights[i, n] + _learningRate * Neurons[i].Inputs[n - 1] * errors[i];
                     }
 
-                    lastdeltaweights[i, n] = delta_w;
+                    _lastDeltaWeights[i, n] = delta_w;
                     Neurons[i].Weights[n] += delta_w; // коррекция весов
                 }
 

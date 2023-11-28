@@ -2,7 +2,8 @@
 {
     class HiddenLayer : Layer
     {
-        public HiddenLayer(int non, int nonp, TypeNeuron nt, string nm_Layer) : base(non, nonp, nt, nm_Layer) { }
+        public HiddenLayer(int neuronsCount, int prevNeuronsCount, NeuronType neuronType, string name) 
+            : base(neuronsCount, prevNeuronsCount, neuronType, name) { }
 
         public override void Recognize(NeuroNet net, Layer nextLayer)
         {
@@ -16,7 +17,7 @@
 
         public override double[] BackwardPass(double[] gr_sums)
         {
-            double[] gr_sum = new double[numofprevneurons];
+            double[] gr_sum = new double[_prevNeuronsCount];
 
             // вычисление градиетных сумм
             for (int j = 0; j < gr_sum.Length; j++)
@@ -30,24 +31,24 @@
             }
 
             // вычисление коррекции синаптических весов
-            for (int i = 0; i < numofneurons; i++)
+            for (int i = 0; i < _neuronsCount; i++)
             {
-                for (int n = 0; n < numofprevneurons + 1; n++)
+                for (int n = 0; n < _prevNeuronsCount + 1; n++)
                 {
                     double delta_w = 0;
                     // для коррекции порога
                     if (n == 0)
                     {
-                        delta_w = momentum * lastdeltaweights[i, 0] + learningrate * Neurons[i].Derivative * gr_sums[i];
+                        delta_w = _momentum * _lastDeltaWeights[i, 0] + _learningRate * Neurons[i].Derivative * gr_sums[i];
                     }
                     // коррекция синаптических весов
                     else
                     {
-                        delta_w = momentum * lastdeltaweights[i, n] + 
-                            learningrate * Neurons[i].Inputs[n - 1] * Neurons[i].Derivative * gr_sums[i];
+                        delta_w = _momentum * _lastDeltaWeights[i, n] + 
+                            _learningRate * Neurons[i].Inputs[n - 1] * Neurons[i].Derivative * gr_sums[i];
                     }
 
-                    lastdeltaweights[i, n] = delta_w;
+                    _lastDeltaWeights[i, n] = delta_w;
                     Neurons[i].Weights[n] += delta_w; // коррекция весов
                 }
 

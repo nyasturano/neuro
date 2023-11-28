@@ -14,7 +14,8 @@ namespace _35_2_Fedorova_neuro
 {
     public partial class Form1 : Form
     {
-        double[] InputData = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, };
+        double[] InputData = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+        
         NeuroNet net;
 
         public Form1()
@@ -131,6 +132,7 @@ namespace _35_2_Fedorova_neuro
         private void button_rec_Click(object sender, EventArgs e)
         {
             net.ForwardPass(net, InputData);
+            label1.Text = net.Fact.ToList().IndexOf(net.Fact.Max()).ToString();
         }
     }
 }

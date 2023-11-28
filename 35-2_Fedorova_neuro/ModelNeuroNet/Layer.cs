@@ -1,23 +1,22 @@
 ﻿using System;
 using System.IO;
-using System.Windows.Forms;
-
+using System.Linq;
 
 namespace _35_2_Fedorova_neuro.ModelNeuroNet
 {
     abstract class Layer
     {
-        protected string name_Layer; // наименование слоя
+        protected string _name; // наименование слоя
 
-        private string pathDirWeights; // путь к каталогу весов
-        private string pathFileWeights; // путь к файлу весов
+        private string _weightsDirPath; // путь к каталогу весов
+        private string _weightsFilePath; // путь к файлу весов
 
-        protected int numofneurons; // число нейронов в текущем слое
-        protected int numofprevneurons; // число нейронов в предыдущем слое
+        protected int _neuronsCount; // число нейронов в текущем слое
+        protected int _prevNeuronsCount; // число нейронов в предыдущем слое
 
-        protected const double learningrate = 0.5;
-        protected const double momentum = 0.05;
-        protected double[,] lastdeltaweights;
+        protected const double _learningRate = 0.5d;
+        protected const double _momentum = 0.05d;
+        protected double[,] _lastDeltaWeights;
 
         private Neuron[] neurons;
 
@@ -35,79 +34,80 @@ namespace _35_2_Fedorova_neuro.ModelNeuroNet
             }
         }
 
-        protected Layer(int non, int nonp, TypeNeuron nt, string nm_Layer)
+        protected Layer(int neuronsCount, int prevNeuronsCount, NeuronType neuronType, string name)
         {
-            name_Layer = nm_Layer;
-            numofneurons = non;
-            numofneurons = nonp;
+            _name = name;
+            _neuronsCount = neuronsCount;
+            _prevNeuronsCount = prevNeuronsCount;
 
-            pathDirWeights = AppDomain.CurrentDomain.BaseDirectory + "memory\\";
-            pathFileWeights = pathDirWeights + name_Layer + "_memory.csv";
+            _weightsDirPath = AppDomain.CurrentDomain.BaseDirectory + "memory\\";
+            _weightsFilePath = _weightsDirPath + name + "_memory.csv";
 
-            Neurons = new Neuron[non];
+            Neurons = new Neuron[neuronsCount];
 
-            double[,] Weights;
+            double[,] weights;
 
-            if (File.Exists(pathFileWeights))
+            if (File.Exists(_weightsFilePath))
             {
-                Weights = WeightInitialize(MemoryMode.GET, pathFileWeights);
+                weights = WeightInitialize(MemoryMode.GET, _weightsFilePath);
             }
             else
             {
-                Directory.CreateDirectory(pathDirWeights);
-                Weights = WeightInitialize(MemoryMode.INIT, pathFileWeights);
+                Directory.CreateDirectory(_weightsDirPath);
+                weights = WeightInitialize(MemoryMode.INIT, _weightsFilePath);
             }
 
-            lastdeltaweights = new double[non, nonp + 1];
+            _lastDeltaWeights = new double[neuronsCount, neuronsCount + 1];
 
-            for (int i = 0; i < non; i++)
+            for (int i = 0; i < neuronsCount; i++)
             {
-                double[] tmp_weights = new double[nonp + 1];
-                for (int j = 0; j < nonp + 1; j++)
+                double[] tmpWeights = new double[prevNeuronsCount + 1];
+                for (int j = 0; j < prevNeuronsCount + 1; j++)
                 {
-                    tmp_weights[j] = Weights[i, j];
+                    tmpWeights[j] = weights[i, j];
                 }
-                Neurons[i] = new Neuron(tmp_weights, nt);
+                Neurons[i] = new Neuron(tmpWeights, neuronType);
             }
         }
 
-        public double[,] WeightInitialize(MemoryMode mm, string path)
+        public double[,] WeightInitialize(MemoryMode memoryMode, string path)
         {
             char[] delim = new char[] { ';', ' ' }; // разделители слов
+
             string tmpStr; // временная строка для чтения
             string[] tmpStrWeights; // временный массив строк
-            double[,] weights = new double[numofneurons, numofprevneurons + 1];
 
-            switch (mm)
+
+            double[,] weights = new double[_neuronsCount, _prevNeuronsCount + 1];
+
+            switch (memoryMode)
             {
+                // прочитать веса из файла
                 case MemoryMode.GET:
+
                     tmpStrWeights = File.ReadAllLines(path);
-                    string[] memory_element;
-                    for (int i = 0; i < numofneurons; i++)
+
+                    for (int i = 0; i < _neuronsCount; i++)
                     {
-                        memory_element = tmpStrWeights[i].Split(delim);
-                        for (int j = 0; j < numofprevneurons + 1; j++)
+                        string[] memoryElement = tmpStrWeights[i].Split(delim);
+
+                        for (int j = 1; j < _prevNeuronsCount + 1; j++)
                         {
-                            weights[i, j] = double.Parse(memory_element[j].Replace(',', '.'), 
+                            weights[i, j] = double.Parse(memoryElement[j - 1].Replace(',', '.'), 
                                 System.Globalization.CultureInfo.InvariantCulture);
                         }
                     }
                     break;
 
+                // записать в файл веса
                 case MemoryMode.SET:
 
-                    tmpStrWeights = new string[numofneurons];
+                    tmpStrWeights = new string[_neuronsCount];
 
-                    if (!File.Exists(path))
-                    {
-                        MessageBox.Show("Файл " + name_Layer + " _memory.csv не найден. Создастся новый файл.", 
-                            "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    }
-
-                    for (int i = 0; i < numofneurons; i++)
+                    for (int i = 0; i < _neuronsCount; i++)
                     {
                         tmpStr = Neurons[i].Weights[0].ToString();
-                        for (int j = 1; j < numofprevneurons + 1; j++)
+                        for (int j = 1; j < _prevNeuronsCount + 1; j++)
                         {
                             tmpStr += delim[0] + Neurons[i].Weights[j].ToString();
                         }
@@ -117,14 +117,8 @@ namespace _35_2_Fedorova_neuro.ModelNeuroNet
                     
                     break;
 
-
+                // проинициализировать веса и записать их в файл
                 case MemoryMode.INIT:
-
-                    if (!File.Exists(path))
-                    {
-                        MessageBox.Show("Файл " + name_Layer + " _memory.csv не найден. Создастся новый файл.",
-                            "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    }
 
                     /*
                         1. Веса инициализируются случайными величинами
@@ -135,25 +129,57 @@ namespace _35_2_Fedorova_neuro.ModelNeuroNet
 
                     Random random = new Random();
 
-                    tmpStrWeights = new string[numofneurons];
+                    double[] tmpArr = new double[_prevNeuronsCount + 1];
+                    
+                    tmpStrWeights = new string[_neuronsCount];
                     tmpStr = "";
 
-                    for (int i = 0; i < numofneurons; i++)
+                    for (int i = 0; i < _neuronsCount; i++)
                     {
-                        // заполнение весов
-
-                        for (int j = 1; j < numofprevneurons + 1; j++)
+                        for (int j = 0; j < _prevNeuronsCount + 1; j++)
                         {
+                            tmpArr[j] = 0.02 * random.NextDouble() - 0.01;
+                        }
+
+                        double tmpRatio = 1.0d / Math.Sqrt(Dispersion(tmpArr) * (_prevNeuronsCount + 1));
+                        double tmpShift = Average(tmpArr);
+
+                        weights[i, 0] = (tmpArr[0] - tmpShift) * tmpRatio;
+                        tmpStr = weights[i, 0].ToString();
+
+                        for (int j = 1; j < _prevNeuronsCount + 1; j++)
+                        {
+                            weights[i, j] = (tmpArr[j] - tmpShift) * tmpRatio;
                             tmpStr += delim[0] + weights[i, j].ToString();
                         }
+
                         tmpStrWeights[i] = tmpStr;
                     }
+
                     File.WriteAllLines(path, tmpStrWeights);
                     break;
             }
 
-
             return weights;
+        }
+
+        private double Average(double[] arr)
+        {
+            return arr.Sum() / arr.Length;
+        }
+
+        private double Dispersion(double[] arr)
+        {
+            double mean = Average(arr);
+
+            double[] squaredDifferences = new double[arr.Length];
+            for (int i = 0; i < arr.Length; i++)
+            {
+                squaredDifferences[i] = Math.Pow(arr[i] - mean, 2);
+            }
+
+            double dispersion = squaredDifferences.Sum() / squaredDifferences.Length;
+            return dispersion;
         }
 
         public abstract void Recognize(NeuroNet net, Layer nextLayer);

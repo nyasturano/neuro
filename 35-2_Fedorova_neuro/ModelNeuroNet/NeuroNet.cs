@@ -8,30 +8,30 @@ namespace _35_2_Fedorova_neuro.ModelNeuroNet
         public double[] Fact = new double[10];
 
         // все слои нейросети
-        private InputLayer input_Layer = null;
-        private HiddenLayer hidden_Layer1 = new HiddenLayer(71, 15, TypeNeuron.Hidden, nameof(hidden_Layer1));
-        private HiddenLayer hidden_Layer2 = new HiddenLayer(32, 71, TypeNeuron.Hidden, nameof(hidden_Layer2));
-        private OutputLayer output_Layer = new OutputLayer(10, 32, TypeNeuron.Output, nameof(output_Layer));
+        private InputLayer inputLayer = null;
+        private HiddenLayer hiddenLayer1 = new HiddenLayer(71, 15, NeuronType.Hidden, nameof(hiddenLayer1));
+        private HiddenLayer hiddenLayer2 = new HiddenLayer(32, 71, NeuronType.Hidden, nameof(hiddenLayer2));
+        private OutputLayer outputLayer = new OutputLayer(10, 32, NeuronType.Output, nameof(outputLayer));
 
         // среднее значение энергии ошибки эпохи обучения
-        private double e_error_avr;
+        private double _eErrorAvg;
 
         // свойства
-        public double E_error_avr { get => e_error_avr; set => e_error_avr = value; }
+        public double EErrorAvg { get => _eErrorAvg; set => _eErrorAvg = value; }
 
         // конструктор
-        public NeuroNet(NetworkMode nm)
+        public NeuroNet(NetworkMode networkMode)
         {
-            input_Layer = new InputLayer(nm);
+            inputLayer = new InputLayer(networkMode);
         }
 
         // прямой проход сигнала по нейросети
         public void ForwardPass(NeuroNet net, double[] netInput)
         {
-            net.hidden_Layer1.Data = netInput;
-            net.hidden_Layer1.Recognize(null, net.hidden_Layer2);
-            net.hidden_Layer2.Recognize(null, net.output_Layer);
-            net.output_Layer.Recognize(net, null);
+            net.hiddenLayer1.Data = netInput;
+            net.hiddenLayer1.Recognize(null, net.hiddenLayer2);
+            net.hiddenLayer2.Recognize(null, net.outputLayer);
+            net.outputLayer.Recognize(net, null);
         }
 
     }

@@ -48,6 +48,7 @@
             this.button_save_train_sample = new System.Windows.Forms.Button();
             this.button17 = new System.Windows.Forms.Button();
             this.numericUpDown_digit = new System.Windows.Forms.NumericUpDown();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_digit)).BeginInit();
             this.SuspendLayout();
             // 
@@ -246,12 +247,22 @@
             this.numericUpDown_digit.Size = new System.Drawing.Size(50, 20);
             this.numericUpDown_digit.TabIndex = 19;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(116, 72);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(35, 13);
+            this.label1.TabIndex = 20;
+            this.label1.Text = "label1";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.WindowFrame;
             this.ClientSize = new System.Drawing.Size(484, 461);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.numericUpDown_digit);
             this.Controls.Add(this.button17);
             this.Controls.Add(this.button_save_train_sample);
@@ -276,6 +287,7 @@
             this.Text = "Neuro App";
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_digit)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -301,6 +313,7 @@
         private System.Windows.Forms.Button button_save_train_sample;
         private System.Windows.Forms.Button button17;
         private System.Windows.Forms.NumericUpDown numericUpDown_digit;
+        private System.Windows.Forms.Label label1;
     }
 }
 
