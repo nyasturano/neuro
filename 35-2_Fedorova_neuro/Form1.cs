@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using _35_2_Fedorova_neuro.ModelNeuroNet;
@@ -15,6 +10,8 @@ namespace _35_2_Fedorova_neuro
     public partial class Form1 : Form
     {
         double[] InputData = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+
+        public double[] NetOutput { set => labelOutput.Text = value.ToList().IndexOf(value.Max()).ToString(); }
         
         NeuroNet net;
 
@@ -132,7 +129,14 @@ namespace _35_2_Fedorova_neuro
         private void button_rec_Click(object sender, EventArgs e)
         {
             net.ForwardPass(net, InputData);
-            label1.Text = net.Fact.ToList().IndexOf(net.Fact.Max()).ToString();
+            NetOutput = net.Fact;
+
+            //labelOutput.Text = net.Fact.ToList().IndexOf(net.Fact.Max()).ToString();
+        }
+
+        private void button_train_Click(object sender, EventArgs e)
+        {
+            net.Train(net);
         }
     }
 }

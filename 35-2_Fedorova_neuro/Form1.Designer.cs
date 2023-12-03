@@ -48,7 +48,7 @@
             this.button_save_train_sample = new System.Windows.Forms.Button();
             this.button17 = new System.Windows.Forms.Button();
             this.numericUpDown_digit = new System.Windows.Forms.NumericUpDown();
-            this.label1 = new System.Windows.Forms.Label();
+            this.labelOutput = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_digit)).BeginInit();
             this.SuspendLayout();
             // 
@@ -220,6 +220,7 @@
             this.button_train.TabIndex = 16;
             this.button_train.Text = "Training";
             this.button_train.UseVisualStyleBackColor = true;
+            this.button_train.Click += new System.EventHandler(this.button_train_Click);
             // 
             // button_save_train_sample
             // 
@@ -247,14 +248,16 @@
             this.numericUpDown_digit.Size = new System.Drawing.Size(50, 20);
             this.numericUpDown_digit.TabIndex = 19;
             // 
-            // label1
+            // labelOutput
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(116, 72);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 13);
-            this.label1.TabIndex = 20;
-            this.label1.Text = "label1";
+            this.labelOutput.AutoSize = true;
+            this.labelOutput.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelOutput.Location = new System.Drawing.Point(82, 330);
+            this.labelOutput.Name = "labelOutput";
+            this.labelOutput.Size = new System.Drawing.Size(90, 31);
+            this.labelOutput.TabIndex = 20;
+            this.labelOutput.Text = "output";
+            this.labelOutput.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Form1
             // 
@@ -262,7 +265,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.WindowFrame;
             this.ClientSize = new System.Drawing.Size(484, 461);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.labelOutput);
             this.Controls.Add(this.numericUpDown_digit);
             this.Controls.Add(this.button17);
             this.Controls.Add(this.button_save_train_sample);
@@ -313,7 +316,7 @@
         private System.Windows.Forms.Button button_save_train_sample;
         private System.Windows.Forms.Button button17;
         private System.Windows.Forms.NumericUpDown numericUpDown_digit;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label labelOutput;
     }
 }
 
