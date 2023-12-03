@@ -14,10 +14,10 @@ namespace _35_2_Fedorova_neuro.ModelNeuroNet
         private OutputLayer outputLayer = new OutputLayer(10, 32, NeuronType.Output, nameof(outputLayer));
 
         // среднее значение энергии ошибки эпохи обучения
-        private double _eErrorAvg;
+        private double eErrorAvg;
 
         // свойства
-        public double EErrorAvg { get => _eErrorAvg; set => _eErrorAvg = value; }
+        public double EErrorAvg { get => eErrorAvg; set => eErrorAvg = value; }
 
         // конструктор
         public NeuroNet(NetworkMode networkMode)
@@ -38,7 +38,7 @@ namespace _35_2_Fedorova_neuro.ModelNeuroNet
         public void Train(NeuroNet net)
         {
             // количество эпох обучения
-            int epochs = 100;
+            int epochs = 1;
             
             net.inputLayer = new InputLayer(NetworkMode.Train);
 
@@ -54,12 +54,12 @@ namespace _35_2_Fedorova_neuro.ModelNeuroNet
             for (int k = 0; k < epochs; k++)
             {
                 // в начале каждой эпохи значение средней энергии ошибки обнуляется
-                _eErrorAvg = 0;
+                eErrorAvg = 0;
 
                 for (int i = 0; i < net.inputLayer.TrainSet.Length; i++)
                 {
                     // прямой проход
-                    ForwardPass(net, net.inputLayer.TrainSet[i].Item1);
+                    net.ForwardPass(net, net.inputLayer.TrainSet[i].Item1);
 
                     // вычисление ошибки по итерации
                     tmpSumError = 0;
@@ -79,17 +79,17 @@ namespace _35_2_Fedorova_neuro.ModelNeuroNet
                         tmpSumError += errors[x] * errors[x] / 2;
                     }
 
-                    // суммарное згачение энергии ошибки эпох
-                    _eErrorAvg += tmpSumError / errors.Length;
+                    // суммарное значение энергии ошибки эпохи
+                    eErrorAvg += tmpSumError / errors.Length;
 
-                    // обратный проход и коррекция весов
+                     // обратный проход и коррекция весов
                     tmp_g_sums2 = net.outputLayer.BackwardPass(errors);
                     tmp_g_sums1 = net.hiddenLayer2.BackwardPass(tmp_g_sums2);
                     net.hiddenLayer1.BackwardPass(tmp_g_sums1);
                 }
 
                 // среднее значение энергии ошибки одной эпохи
-                _eErrorAvg /= net.inputLayer.TrainSet.Length;
+                eErrorAvg /= net.inputLayer.TrainSet.Length;
 
                 // здесь написать код отображения среднего значения энергии ошибки эпохи на графике
 
@@ -99,9 +99,9 @@ namespace _35_2_Fedorova_neuro.ModelNeuroNet
             net.inputLayer = null;
 
             // сохранение скорректированных весов
-            net.hiddenLayer1.WeightInitialize(MemoryMode.SET, nameof(hiddenLayer1) + "_memory.csv");
-            net.hiddenLayer2.WeightInitialize(MemoryMode.SET, nameof(hiddenLayer2) + "_memory.csv");
-            net.outputLayer.WeightInitialize(MemoryMode.SET, nameof(outputLayer) + "_memory.csv");
+            net.hiddenLayer1.WeightInitialize(MemoryMode.SET);
+            net.hiddenLayer2.WeightInitialize(MemoryMode.SET);
+            net.outputLayer.WeightInitialize(MemoryMode.SET);
         }
 
     }

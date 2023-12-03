@@ -3,64 +3,62 @@
 namespace _35_2_Fedorova_neuro.ModelNeuroNet
 {
     class Neuron
-    {
-        
+    {   
         // поля
-        private NeuronType _type;
-        private double[] _inputs;
-        private double[] _weights;
+        private NeuronType type;
+        private double[] inputs;
+        private double[] weights;
 
-        private double _output;
-        private double _derivative;
+        private double output;
+        private double derivative;
 
         // для LeakyReLU
-        private double _alpha = 0.01;
+        private double alpha = 0.01;
 
         // свойства
-        public double[] Inputs { get => _inputs; set => _inputs = value; }
-        public double[] Weights { get => _weights; set => _weights = value; }
+        public double[] Inputs { get => inputs; set => inputs = value; }
+        public double[] Weights { get => weights; set => weights = value; }
         
-        public double Output { get => _output; }
-        public double Derivative { get => _derivative; }
+        public double Output { get => output; }
+        public double Derivative { get => derivative; }
 
         // конструктор
-        public Neuron(double[] weights, NeuronType type)
+        public Neuron(double[] _weights, NeuronType _type)
         {
-            _weights = weights;
-            _type = type;
+            weights = _weights;
+            type = _type;
         }
-
 
         public void Activator()
         {
-            double sum = _weights[0];
+            // порог
+            double sum = weights[0];
 
-            for (int i = 0; i < _inputs.Length; i++)
+            for (int i = 0; i < inputs.Length; i++)
             {
-                sum += _inputs[i] * _weights[i + 1];
+                sum += inputs[i] * weights[i + 1];
             }
 
-            switch (_type)
+            switch (type)
             {
                 case NeuronType.Hidden:
-                    _output = LeakyReLU(sum);
-                    _derivative = LeakyReLU_derivative(sum);
+                    output = LeakyReLU(sum);
+                    derivative = LeakyReLUderivative(sum);
                     break;
                 case NeuronType.Output:
-                    _output = Exp(sum);
+                    output = Exp(sum);
                     break;
             }
-
         }
 
         private double LeakyReLU(double arg)
         {
-            return arg >= 0 ? arg : arg * _alpha;
+            return arg >= 0 ? arg : arg * alpha;
         }
 
-        private double LeakyReLU_derivative(double arg)
+        private double LeakyReLUderivative(double arg)
         {
-            return arg >= 0 ? 1 : _alpha;
+            return arg >= 0 ? 1 : alpha;
         }
     }
 }

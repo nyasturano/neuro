@@ -17,7 +17,7 @@
 
         public override double[] BackwardPass(double[] gr_sums)
         {
-            double[] gr_sum = new double[_prevNeuronsCount];
+            double[] gr_sum = new double[prevNeuronsCount];
 
             // вычисление градиетных сумм
             for (int j = 0; j < gr_sum.Length; j++)
@@ -31,24 +31,24 @@
             }
 
             // вычисление коррекции синаптических весов
-            for (int i = 0; i < _neuronsCount; i++)
+            for (int i = 0; i < neuronsCount; i++)
             {
-                for (int n = 0; n < _prevNeuronsCount + 1; n++)
+                for (int n = 0; n < prevNeuronsCount + 1; n++)
                 {
                     double delta_w = 0;
                     // для коррекции порога
                     if (n == 0)
                     {
-                        delta_w = _momentum * _lastDeltaWeights[i, 0] + _learningRate * Neurons[i].Derivative * gr_sums[i];
+                        delta_w = momentum * lastDeltaWeights[i, 0] + learningRate * Neurons[i].Derivative * gr_sums[i];
                     }
                     // коррекция синаптических весов
                     else
                     {
-                        delta_w = _momentum * _lastDeltaWeights[i, n] + 
-                            _learningRate * Neurons[i].Inputs[n - 1] * Neurons[i].Derivative * gr_sums[i];
+                        delta_w = momentum * lastDeltaWeights[i, n] + 
+                            learningRate * Neurons[i].Inputs[n - 1] * Neurons[i].Derivative * gr_sums[i];
                     }
 
-                    _lastDeltaWeights[i, n] = delta_w;
+                    lastDeltaWeights[i, n] = delta_w;
                     Neurons[i].Weights[n] += delta_w; // коррекция весов
                 }
 

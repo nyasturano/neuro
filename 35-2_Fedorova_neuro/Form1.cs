@@ -9,11 +9,11 @@ namespace _35_2_Fedorova_neuro
 {
     public partial class Form1 : Form
     {
-        double[] InputData = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+        private double[] inputData = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+        private NeuroNet net;
 
         public double[] NetOutput { set => labelOutput.Text = value.ToList().IndexOf(value.Max()).ToString(); }
         
-        NeuroNet net;
 
         public Form1()
         {
@@ -26,12 +26,12 @@ namespace _35_2_Fedorova_neuro
             if (b.BackColor == Color.White)
             {
                 b.BackColor = Color.RoyalBlue;
-                InputData[i] = 1;
+                inputData[i] = 1;
             }
             else
             {
                 b.BackColor = Color.White;
-                InputData[i] = 0;
+                inputData[i] = 0;
             }
         }
 
@@ -115,11 +115,13 @@ namespace _35_2_Fedorova_neuro
         private void button_save_train_sample_Click(object sender, EventArgs e)
         {
             string pathFileTrainSample = AppDomain.CurrentDomain.BaseDirectory + "trainSample.txt";
+
+            // желаемый отклик
             string strSample = numericUpDown_digit.Value.ToString();
 
-            for (int i = 0; i < InputData.Length; i++)
+            for (int i = 0; i < inputData.Length; i++)
             {
-                strSample += " " + InputData[i].ToString();
+                strSample += " " + inputData[i].ToString();
             }
             strSample += '\n';
 
@@ -128,10 +130,8 @@ namespace _35_2_Fedorova_neuro
 
         private void button_rec_Click(object sender, EventArgs e)
         {
-            net.ForwardPass(net, InputData);
+            net.ForwardPass(net, inputData);
             NetOutput = net.Fact;
-
-            //labelOutput.Text = net.Fact.ToList().IndexOf(net.Fact.Max()).ToString();
         }
 
         private void button_train_Click(object sender, EventArgs e)

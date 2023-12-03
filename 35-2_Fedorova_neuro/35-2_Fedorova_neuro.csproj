@@ -59,6 +59,7 @@
     <Compile Include="ModelNeuroNet\Neuron.cs" />
     <Compile Include="ModelNeuroNet\NeuroNet.cs" />
     <Compile Include="ModelNeuroNet\OutputLayer.cs" />
+    <Compile Include="ModelNeuroNet\Utils.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">

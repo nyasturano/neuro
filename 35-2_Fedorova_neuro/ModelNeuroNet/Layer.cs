@@ -1,22 +1,21 @@
 ﻿using System;
 using System.IO;
-using System.Linq;
 
 namespace _35_2_Fedorova_neuro.ModelNeuroNet
 {
     abstract class Layer
     {
-        protected string _name; // наименование слоя
+        protected string name; // наименование слоя
 
-        private string _weightsDirPath; // путь к каталогу весов
-        private string _weightsFilePath; // путь к файлу весов
+        private string weightsDirPath; // путь к каталогу весов
+        private string weightsFilePath; // путь к файлу весов
 
-        protected int _neuronsCount; // число нейронов в текущем слое
-        protected int _prevNeuronsCount; // число нейронов в предыдущем слое
+        protected int neuronsCount; // число нейронов в текущем слое
+        protected int prevNeuronsCount; // число нейронов в предыдущем слое
 
-        protected const double _learningRate = 0.5d;
-        protected const double _momentum = 0.05d;
-        protected double[,] _lastDeltaWeights;
+        protected const double learningRate = 0.5d;
+        protected const double momentum = 0.05d;
+        protected double[,] lastDeltaWeights;
 
         private Neuron[] neurons;
 
@@ -34,31 +33,32 @@ namespace _35_2_Fedorova_neuro.ModelNeuroNet
             }
         }
 
-        protected Layer(int neuronsCount, int prevNeuronsCount, NeuronType neuronType, string name)
+        protected Layer(int _neuronsCount, int _prevNeuronsCount, NeuronType _neuronType, string _name)
         {
-            _name = name;
-            _neuronsCount = neuronsCount;
-            _prevNeuronsCount = prevNeuronsCount;
+            name = _name;
+            neuronsCount = _neuronsCount;
+            prevNeuronsCount = _prevNeuronsCount;
 
-            _weightsDirPath = AppDomain.CurrentDomain.BaseDirectory + "memory\\";
-            _weightsFilePath = _weightsDirPath + name + "_memory.csv";
+            weightsDirPath = AppDomain.CurrentDomain.BaseDirectory + "memory\\";
+            weightsFilePath = weightsDirPath + name + "_memory.csv";
 
             Neurons = new Neuron[neuronsCount];
 
             double[,] weights;
 
-            if (File.Exists(_weightsFilePath))
+            if (File.Exists(weightsFilePath))
             {
-                weights = WeightInitialize(MemoryMode.GET, _weightsFilePath);
+                weights = WeightInitialize(MemoryMode.GET);
             }
             else
             {
-                Directory.CreateDirectory(_weightsDirPath);
-                weights = WeightInitialize(MemoryMode.INIT, _weightsFilePath);
+                Directory.CreateDirectory(weightsDirPath);
+                weights = WeightInitialize(MemoryMode.INIT);
             }
 
-            _lastDeltaWeights = new double[neuronsCount, neuronsCount + 1];
+            lastDeltaWeights = new double[neuronsCount, prevNeuronsCount + 1];
 
+            // заполняем данные о каждом нейроне
             for (int i = 0; i < neuronsCount; i++)
             {
                 double[] tmpWeights = new double[prevNeuronsCount + 1];
@@ -66,32 +66,31 @@ namespace _35_2_Fedorova_neuro.ModelNeuroNet
                 {
                     tmpWeights[j] = weights[i, j];
                 }
-                Neurons[i] = new Neuron(tmpWeights, neuronType);
+                Neurons[i] = new Neuron(tmpWeights, _neuronType);
             }
         }
 
-        public double[,] WeightInitialize(MemoryMode memoryMode, string path)
+        public double[,] WeightInitialize(MemoryMode memoryMode)
         {
             char[] delim = new char[] { ';', ' ' }; // разделители слов
 
             string tmpStr; // временная строка для чтения
             string[] tmpStrWeights; // временный массив строк
 
-
-            double[,] weights = new double[_neuronsCount, _prevNeuronsCount + 1];
+            double[,] weights = new double[neuronsCount, prevNeuronsCount + 1];
 
             switch (memoryMode)
             {
                 // прочитать веса из файла
                 case MemoryMode.GET:
 
-                    tmpStrWeights = File.ReadAllLines(path);
+                    tmpStrWeights = File.ReadAllLines(weightsFilePath);
 
-                    for (int i = 0; i < _neuronsCount; i++)
+                    for (int i = 0; i < neuronsCount; i++)
                     {
                         string[] memoryElement = tmpStrWeights[i].Split(delim);
 
-                        for (int j = 1; j < _prevNeuronsCount + 1; j++)
+                        for (int j = 1; j < prevNeuronsCount + 1; j++)
                         {
                             weights[i, j] = double.Parse(memoryElement[j - 1].Replace(',', '.'), 
                                 System.Globalization.CultureInfo.InvariantCulture);
@@ -102,18 +101,18 @@ namespace _35_2_Fedorova_neuro.ModelNeuroNet
                 // записать в файл веса
                 case MemoryMode.SET:
 
-                    tmpStrWeights = new string[_neuronsCount];
+                    tmpStrWeights = new string[neuronsCount];
 
-                    for (int i = 0; i < _neuronsCount; i++)
+                    for (int i = 0; i < neuronsCount; i++)
                     {
                         tmpStr = Neurons[i].Weights[0].ToString();
-                        for (int j = 1; j < _prevNeuronsCount + 1; j++)
+                        for (int j = 1; j < prevNeuronsCount + 1; j++)
                         {
                             tmpStr += delim[0] + Neurons[i].Weights[j].ToString();
                         }
                         tmpStrWeights[i] = tmpStr;
                     }
-                    File.WriteAllLines(path, tmpStrWeights);
+                    File.WriteAllLines(weightsFilePath, tmpStrWeights);
                     
                     break;
 
@@ -129,25 +128,25 @@ namespace _35_2_Fedorova_neuro.ModelNeuroNet
 
                     Random random = new Random();
 
-                    double[] tmpArr = new double[_prevNeuronsCount + 1];
+                    double[] tmpArr = new double[prevNeuronsCount + 1];
                     
-                    tmpStrWeights = new string[_neuronsCount];
+                    tmpStrWeights = new string[neuronsCount];
                     tmpStr = "";
 
-                    for (int i = 0; i < _neuronsCount; i++)
+                    for (int i = 0; i < neuronsCount; i++)
                     {
-                        for (int j = 0; j < _prevNeuronsCount + 1; j++)
+                        for (int j = 0; j < prevNeuronsCount + 1; j++)
                         {
                             tmpArr[j] = 0.02 * random.NextDouble() - 0.01;
                         }
 
-                        double tmpRatio = 1.0d / Math.Sqrt(Dispersion(tmpArr) * (_prevNeuronsCount + 1));
-                        double tmpShift = Average(tmpArr);
+                        double tmpRatio = 1.0d / Math.Sqrt(Utils.Dispersion(tmpArr) * (prevNeuronsCount + 1));
+                        double tmpShift = Utils.Average(tmpArr);
 
                         weights[i, 0] = (tmpArr[0] - tmpShift) * tmpRatio;
                         tmpStr = weights[i, 0].ToString();
 
-                        for (int j = 1; j < _prevNeuronsCount + 1; j++)
+                        for (int j = 1; j < prevNeuronsCount + 1; j++)
                         {
                             weights[i, j] = (tmpArr[j] - tmpShift) * tmpRatio;
                             tmpStr += delim[0] + weights[i, j].ToString();
@@ -156,30 +155,11 @@ namespace _35_2_Fedorova_neuro.ModelNeuroNet
                         tmpStrWeights[i] = tmpStr;
                     }
 
-                    File.WriteAllLines(path, tmpStrWeights);
+                    File.WriteAllLines(weightsFilePath, tmpStrWeights);
                     break;
             }
 
             return weights;
-        }
-
-        private double Average(double[] arr)
-        {
-            return arr.Sum() / arr.Length;
-        }
-
-        private double Dispersion(double[] arr)
-        {
-            double mean = Average(arr);
-
-            double[] squaredDifferences = new double[arr.Length];
-            for (int i = 0; i < arr.Length; i++)
-            {
-                squaredDifferences[i] = Math.Pow(arr[i] - mean, 2);
-            }
-
-            double dispersion = squaredDifferences.Sum() / squaredDifferences.Length;
-            return dispersion;
         }
 
         public abstract void Recognize(NeuroNet net, Layer nextLayer);
