@@ -35,10 +35,13 @@ namespace _35_2_Fedorova_neuro.ModelNeuroNet
         }
 
         // метод обучения
-        public void Train(NeuroNet net)
+        public void Train(NeuroNet net, Action<double[]> callback)
         {
+
             // количество эпох обучения
-            int epochs = 1;
+            int epochs = 100;
+
+            double[] avg_errors = new double[epochs];
             
             net.inputLayer = new InputLayer(NetworkMode.Train);
 
@@ -91,7 +94,11 @@ namespace _35_2_Fedorova_neuro.ModelNeuroNet
                 // среднее значение энергии ошибки одной эпохи
                 eErrorAvg /= net.inputLayer.TrainSet.Length;
 
+                //avg_errors[k] = eErrorAvg;
+                avg_errors[k] = eErrorAvg;
+
                 // здесь написать код отображения среднего значения энергии ошибки эпохи на графике
+
 
             }
 
@@ -102,6 +109,8 @@ namespace _35_2_Fedorova_neuro.ModelNeuroNet
             net.hiddenLayer1.WeightInitialize(MemoryMode.SET);
             net.hiddenLayer2.WeightInitialize(MemoryMode.SET);
             net.outputLayer.WeightInitialize(MemoryMode.SET);
+
+            callback(avg_errors);
         }
 
     }

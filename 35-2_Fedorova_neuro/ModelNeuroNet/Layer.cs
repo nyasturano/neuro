@@ -13,7 +13,7 @@ namespace _35_2_Fedorova_neuro.ModelNeuroNet
         protected int neuronsCount; // число нейронов в текущем слое
         protected int prevNeuronsCount; // число нейронов в предыдущем слое
 
-        protected const double learningRate = 0.5d;
+        protected const double learningRate = 0.001d;
         protected const double momentum = 0.05d;
         protected double[,] lastDeltaWeights;
 

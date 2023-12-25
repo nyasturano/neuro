@@ -1,0 +1,11 @@
+C:\Users\fedan\OneDrive\Рабочий стол\35-2_Fedorova_neuro\35-2_Fedorova_neuro\bin\Release\35-2_Fedorova_neuro.exe.config
+C:\Users\fedan\OneDrive\Рабочий стол\35-2_Fedorova_neuro\35-2_Fedorova_neuro\bin\Release\35-2_Fedorova_neuro.exe
+C:\Users\fedan\OneDrive\Рабочий стол\35-2_Fedorova_neuro\35-2_Fedorova_neuro\bin\Release\35-2_Fedorova_neuro.pdb
+C:\Users\fedan\OneDrive\Рабочий стол\35-2_Fedorova_neuro\35-2_Fedorova_neuro\obj\Release\35-2_Fedorova_neuro.csproj.AssemblyReference.cache
+C:\Users\fedan\OneDrive\Рабочий стол\35-2_Fedorova_neuro\35-2_Fedorova_neuro\obj\Release\35-2_Fedorova_neuro.csproj.SuggestedBindingRedirects.cache
+C:\Users\fedan\OneDrive\Рабочий стол\35-2_Fedorova_neuro\35-2_Fedorova_neuro\obj\Release\_35_2_Fedorova_neuro.Form1.resources
+C:\Users\fedan\OneDrive\Рабочий стол\35-2_Fedorova_neuro\35-2_Fedorova_neuro\obj\Release\_35_2_Fedorova_neuro.Properties.Resources.resources
+C:\Users\fedan\OneDrive\Рабочий стол\35-2_Fedorova_neuro\35-2_Fedorova_neuro\obj\Release\35-2_Fedorova_neuro.csproj.GenerateResource.cache
+C:\Users\fedan\OneDrive\Рабочий стол\35-2_Fedorova_neuro\35-2_Fedorova_neuro\obj\Release\35-2_Fedorova_neuro.csproj.CoreCompileInputs.cache
+C:\Users\fedan\OneDrive\Рабочий стол\35-2_Fedorova_neuro\35-2_Fedorova_neuro\obj\Release\35-2_Fedorova_neuro.exe
+C:\Users\fedan\OneDrive\Рабочий стол\35-2_Fedorova_neuro\35-2_Fedorova_neuro\obj\Release\35-2_Fedorova_neuro.pdb
